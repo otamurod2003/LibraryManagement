@@ -1,0 +1,31 @@
+﻿@model Librarian
+
+@{
+    ViewBag.Title = "Create new librarian";
+}
+
+<div class="col-md-8 col-lg-6 col-sm-12 col-xl-4" >
+    <form asp-controller="home" asp-action="create" method="post">
+        <div class="form-group m-1">
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" class="form-control" placeholder="fullname..."/>
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+        <div class="form-group m-1">
+            <label asp-for="Age"></label>
+            <input asp-for="Age" class="form-control" placeholder="age..." />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+        <div class="form-group m-1" >
+            <label asp-for="LibraryDepartment"></label>
+            <select class="form-select " asp-for="LibraryDepartment" asp-items="Html.GetEnumSelectList<Departments>()">
+                <option>Please select...</option>
+            </select>
+            <span asp-validation-for="LibraryDepartment" class="text-danger"></span>
+        </div>
+        <div class="">
+            <button class="btn btn-primary m-2" type="submit">Create</button>
+            <a class="btn btn-primary m-2" asp-controller="home" asp-action="index">Cancel</a>
+        </div>
+    </form>
+</div>

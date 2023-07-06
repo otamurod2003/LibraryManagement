@@ -1,0 +1,52 @@
+﻿@model List<Librarian>  
+@{
+    ViewBag.Title = "All librarians";
+} 
+
+<a class="btn btn-primary m-2" asp-action="create" asp-controller="home"> Add new librarian </a>
+<div>
+    @if (Model.Any())
+    {
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Librarian ID</th>
+                    <th>FullName</th>
+                    <th>Age</th>
+                    <th>Library Department</th>
+                    <th>Admin Features</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var librarian in Model)
+                {
+                    <tr>
+                        <td>@librarian.Id</td>
+                        <td>@librarian.FullName</td>
+                        <td>@librarian.Age</td>
+                        <td>@librarian.LibraryDepartment</td>
+                        <td>
+                            <a class="btn btn-primary" asp-controller="home" asp-action="update"
+                               asp-route-id="@librarian.Id">Update</a>
+                            <a class="btn btn-primary" asp-controller="home" asp-action="delete"
+                               asp-route-id="@librarian.Id">Delete</a>
+                            <a class="btn btn-primary" asp-controller="home" asp-action="details"
+                               asp-route-id="@librarian.Id">Details</a>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div>
+            <h2 class="text-danger text-center">No librarians yet. Please add new librarian to library...</h2>
+        </div>
+    }
+
+
+</div>

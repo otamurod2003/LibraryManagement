@@ -1,15 +1,21 @@
-﻿@model  Librarian
+﻿@model  LibrarianModel
 @{ 
     ViewBag.Title = "Librarian details";
+    string filePath = "~/images/" + Model.PhotoFilePath;
 }
-
+@if(Model is null)
+{
+    return;
+}
 
 <div class="card">
     <div class="card-header">
         <h2>@Model.FullName</h2>
     </div>
     <div class="card-body">
+        <img src="@filePath" alt="Alternate Text" class="card-img"/>
         <ul>
+
             <li>Librarian ID: @Model.Id</li>
             <li>Age: @Model.Age</li>
             <li>Department: @Model.LibraryDepartment</li>

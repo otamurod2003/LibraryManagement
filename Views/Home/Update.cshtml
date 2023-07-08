@@ -1,10 +1,11 @@
-﻿@model Librarian
+﻿@model HomeCreateViewModel   
 @{
     ViewData["Title"] = "Update current librarian";
+    var imageFilePath = "~/images/" + Model.Photo.FileName;
 }
 
 <div class="col-md-8 col-lg-6 col-sm-12 col-xl-4">
-    <form asp-controller="home" asp-action="update" method="post">
+    <form enctype="multipart/form-data" asp-controller="home" asp-action="update" method="post">
         <div class="form-group m-1">
             <label asp-for="FullName"></label>
             <input asp-for="FullName" class="form-control" placeholder="fullname..." />
@@ -14,6 +15,14 @@
             <label asp-for="Age"></label>
             <input asp-for="Age" class="form-control" placeholder="age..." />
             <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+        <div class="form-group m-1">
+            <label asp-for="Photo"></label>
+            <div class="input-group mb-3">
+                <input asp-for="Photo" class="form-control" id="inputGroupFile02">
+                <label class="input-group-text" for="inputGroupFile02">Choose file</label>
+            </div>
+
         </div>
         <div class="form-group m-1">
             <label asp-for="LibraryDepartment"></label>
@@ -27,10 +36,9 @@
             <a class="btn btn-primary m-2" asp-controller="home" asp-action="index">Cancel</a>
         </div>
     </form>
-</div>
 
-@section Scripts{
-  
-        
-   
-}
+    <div>
+        <h4>Current image </h4>
+        <img src="@imageFilePath" alt="Librarian image" />
+    </div>
+</div>

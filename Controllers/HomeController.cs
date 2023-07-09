@@ -2,20 +2,27 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LibraryManagement.Models;
+using LibraryManagement.ViewModels;
+using System.IO;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using LibraryManagement.DataAccess;
+using LibraryManagement.Services;
 
 namespace LibraryManagement.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILibrarianRepository _librarianRepository;
+        private readonly IGenericCRUDService<LibrarianModel> _librarianSvc;
+        private readonly IWebHostEnvironment _webhost;
 
-        public HomeController(ILibrarianRepository librarianRepository)
+        public HomeController(IGenericCRUDService<LibrarianModel> librarianSvc, IWebHostEnvironment webhost)
         {
-            _librarianRepository = librarianRepository;
+            _librarianSvc = librarianSvc;
+            _webhost = webhost;
         }
         public async Task<IActionResult> Index()
         {
-            var librarians = await Task.FromResult(_librarianRepository.GetAllLibrarians());
+            var librarians = await Task.FromResult(_librarianSvc.GetAll());
             return View(await librarians);
         }
 
@@ -23,43 +30,82 @@ namespace LibraryManagement.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var librarian = await Task.FromResult(_librarianRepository.GetLibrarian(id));
+            var librarian = await Task.FromResult(_librarianSvc.Get(id));
             return View(await librarian);
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            Librarian librarian  = new Librarian();
-            
-            return await Task.FromResult(View(librarian));
+            return await Task.FromResult(View());
         }
 
+
+
         [HttpPost]
-        public async Task<IActionResult> Create(Librarian librarian)
+        public async Task<IActionResult> Create(LibrarianModel librarian)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-              var createdLibrarian =  await _librarianRepository.CreateLibrarian(librarian);
-                return RedirectToAction("details", new { id = createdLibrarian.Id });
+                /*  string uploadFolder = Path.Combine(_webhost.WebRootPath, "images");
+                  uniqueFileName = Guid.NewGuid().ToString() + "_" + librarian.Photo.FileName;
+
+                  string imageFilePath = Path.Combine(uploadFolder, uniqueFileName);
+                  librarian.Photo.CopyTo(new FileStream(imageFilePath, FileMode.Create));
+              }*/
+                LibrarianModel newLibrarian = new LibrarianModel
+                {
+                    FullName = librarian.FullName,
+                    Age = librarian.Age,
+                    LibraryDepartment = librarian.LibraryDepartment,
+                    // PhotoFilePath = uniqueFileName
+                };
+                await _librarianSvc.Create(newLibrarian);
+                return RedirectToAction("index");
             }
-           
-               return View();
+            return View();
+            /*ModelState.AddModelError(librarian.Photo.ContentType,"This image isn't  compatible...");
+           return View();
+       }*/
+
+
         }
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var existlibrarian = await _librarianRepository.GetLibrarian(id);
+            var existlibrarian = await _librarianSvc.Get(id);
             return View(existlibrarian);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(Librarian librarian)
+        public async Task<IActionResult> Update(LibrarianModel librarian)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                await _librarianRepository.UpdateLibrarian(librarian);
-                return RedirectToAction("details", new {id=librarian.Id});  
+                /*if (FileUploadRules(librarian.Photo))
+                {
+                    string uniqueFileName = string.Empty;
+                    if (librarian.Photo != null)
+                    {
+                        string uploadFolder = Path.Combine(_webhost.WebRootPath, "images");
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + librarian.Photo.FileName;
+
+                        string imageFilePath = Path.Combine(uploadFolder, uniqueFileName);
+                        librarian.Photo.CopyTo(new FileStream(imageFilePath, FileMode.Create));
+                    }*/
+                LibrarianModel newLibrarian = new LibrarianModel
+                {
+                    FullName = librarian.FullName,
+                    Age = librarian.Age,
+                    LibraryDepartment = librarian.LibraryDepartment,
+                    //PhotoFilePath = uniqueFileName
+                };
+                /*newLibrarian =*/
+                await _librarianSvc.Update(newLibrarian);
+                return RedirectToAction("index");
+                /*}
+                ModelState.AddModelError(librarian.Photo.ContentType, "This image isn't  compatible...");
+                return View();*/
             }
             return View();
         }
@@ -67,13 +113,32 @@ namespace LibraryManagement.Controllers
         [HttpGet, HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var librarian = await _librarianRepository.GetLibrarian(id);
-            if(librarian !=null)
+            var librarian = await _librarianSvc.Get(id);
+            if (librarian != null)
             {
-               await _librarianRepository.DeleteLibrarian(librarian.Id);
+                await _librarianSvc.Delete(librarian.Id);
             }
-
             return RedirectToAction("index");
+        }
+
+        public bool FileUploadRules(IFormFile uploadFile)
+        {
+            if (uploadFile is not null && uploadFile.Length > 0)
+            {
+                //Rasm turi faqat jpeg va png formatlarni qabul qiladi
+                if (uploadFile.ContentType != "image/jpeg" && uploadFile.ContentType != "image/png")
+                {
+                    return false;
+                }
+                if (uploadFile.Length > 3 * 1024 * 1024) // rasm hajmi 3 MB dan kam bo'lishi kerak
+                {
+                    return false;
+                }
+
+                return true;
+
+            }
+            return false;
         }
     }
 }

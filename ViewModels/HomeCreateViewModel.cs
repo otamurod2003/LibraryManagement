@@ -18,7 +18,7 @@ namespace LibraryManagement.ViewModels
         public int Age { get; set; }
         public Departments LibraryDepartment { get; set; }
 
-        public IFormFile Photo { get; set; }
+        //public IFormFile Photo { get; set; }
 
     }
 }

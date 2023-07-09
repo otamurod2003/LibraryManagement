@@ -1,14 +1,15 @@
 ﻿using LibraryManagement.DataAccess;
+using LibraryManagement.DataAccess.Data;
 using LibraryManagement.Models;
-using System.Security.AccessControl;
+using LibraryManagement.ViewModels;
 
 namespace LibraryManagement.Services
 {
     public class LibrarianCRUDService : IGenericCRUDService<LibrarianModel>
     {
-        private readonly ILibrarianRepository _librarianRepository;
+        private readonly IGenericRepository<LibrarianModel> _librarianRepository;
 
-        public LibrarianCRUDService(ILibrarianRepository librarianRepository)
+        public LibrarianCRUDService(IGenericRepository<LibrarianModel> librarianRepository)
         {
             _librarianRepository = librarianRepository;
         }
@@ -16,17 +17,20 @@ namespace LibraryManagement.Services
         {
             var librarian = new Librarian
             {
+                Id = model.Id,  
                 FullName = model.FullName,
                 Age = model.Age,
                 LibraryDepartment = (DataAccess.Departments)model.LibraryDepartment,
-                PhotoFilePath = model.PhotoFilePath,
+                
+               // PhotoFilePath = model.PhotoFilePath,
             };
-            var createdLibrarian = await Task.FromResult(_librarianRepository.CreateLibrarian(librarian));
+            var createdLibrarian = await _librarianRepository.Create();
             var result = new LibrarianModel
             {
+                Id = createdLibrarian.Id,
                 FullName = createdLibrarian.FullName,
                 Age = createdLibrarian.Age,
-                PhotoFilePath = createdLibrarian.PhotoFilePath,
+               // PhotoFilePath = createdLibrarian.PhotoFilePath,
                 LibraryDepartment = (Models.Departments)createdLibrarian.LibraryDepartment,
             };
             return result;
@@ -34,19 +38,19 @@ namespace LibraryManagement.Services
 
         public async Task<bool> Delete(int id)
         {
-            return await _librarianRepository.DeleteLibrarian(id);                    
+            return await _librarianRepository.Delete(id);                    
         }
 
         public async Task<LibrarianModel> Get(int id)
         {
-            var librarian = await _librarianRepository.GetLibrarian(id);
+            var librarian = await _librarianRepository.Get(id);
             var model = new LibrarianModel
             {
-                //Id = librarian.Id,
+               Id = librarian.Id,
                 FullName = librarian.FullName,
                 Age = librarian.Age,
                 LibraryDepartment = (Models.Departments)librarian.LibraryDepartment,
-                PhotoFilePath = librarian.PhotoFilePath,
+                //PhotoFilePath = librarian.PhotoFilePath,
             };
             return model;
         }
@@ -62,7 +66,7 @@ namespace LibraryManagement.Services
                     FullName = librarian.FullName,
                     Age = librarian.Age,
                     LibraryDepartment = (Models.Departments)librarian.LibraryDepartment,
-                    PhotoFilePath = librarian.PhotoFilePath,
+                    //PhotoFilePath = librarian.PhotoFilePath,
                     Id = librarian.Id
                 };
 
@@ -75,18 +79,20 @@ namespace LibraryManagement.Services
         {
             var librarian = new Librarian
             {
+                //Id = model.Id,
                 FullName = model.FullName,
                 Age = model.Age,
-                PhotoFilePath = model.PhotoFilePath,
+                //PhotoFilePath = model.PhotoFilePath,
                 LibraryDepartment = (DataAccess.Departments)model.LibraryDepartment,
             };
-            var updatedLibrarian =await  _librarianRepository.UpdateLibrarian(librarian);
+            var updatedLibrarian =await  _librarianRepository.Update(librarian);
             var result = new LibrarianModel
             {
+                //Id = updatedLibrarian.Id,
                 FullName = updatedLibrarian.FullName,
                 Age = updatedLibrarian.Age,
                 LibraryDepartment = (Models.Departments)updatedLibrarian.LibraryDepartment,
-                PhotoFilePath = updatedLibrarian.PhotoFilePath,
+                //PhotoFilePath = updatedLibrarian.PhotoFilePath,
             };
 
             return result;

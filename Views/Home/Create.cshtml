@@ -1,5 +1,4 @@
-﻿@model HomeCreateViewModel
-
+﻿@model LibrarianModel
 @{
     ViewBag.Title = "Create new librarian";
 }
@@ -16,14 +15,14 @@
             <input asp-for="Age" class="form-control" placeholder="age..." />
             <span asp-validation-for="Age" class="text-danger"></span>
         </div>
-        <div class="form-group m-1">
+        @*<div class="form-group m-1">
             <label asp-for="Photo"></label>
             <div class="input-group mb-3">
                 <input asp-for="Photo" class="form-control" id="inputGroupFile02">
                 <label class="input-group-text" for="inputGroupFile02">Choose file</label>
             </div>
 
-        </div>
+        </div>*@
         <div class="form-group m-1">
             <label asp-for="LibraryDepartment"></label>
             <select class="form-select " asp-for="LibraryDepartment" asp-items="Html.GetEnumSelectList<Departments>()">

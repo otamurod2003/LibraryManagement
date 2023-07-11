@@ -6,8 +6,8 @@ namespace LibraryManagement.Services
     {
         Task<List<T>> GetAll();
         Task<T> Get(int id);
-        Task<T> Create(T librarian);
-        Task<T> Update(T librarian);
+        Task<T> Create(T adress);
+        Task<T> Update(T adress);
         Task<bool> Delete(int id);
     }
 }

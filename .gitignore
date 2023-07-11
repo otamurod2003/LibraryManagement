@@ -364,3 +364,5 @@ FodyWeavers.xsd
 *.db-shm
 *.db-wal
 /Migrations
+/ViewModels/HomeCreateViewModel.cs
+/ViewModels/HomeUpdateViewModel.cs

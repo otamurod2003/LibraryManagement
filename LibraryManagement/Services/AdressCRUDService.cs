@@ -1,8 +1,5 @@
-﻿using LibraryManagement.DataAccess;
-using LibraryManagement.DataAccess.Data;
-using LibraryManagement.DataAccess.Entities;
+﻿using LibraryManagement.DataAccess.Data;
 using LibraryManagement.Models;
-using LibraryManagement.ViewModels;
 
 namespace LibraryManagement.Services
 {
@@ -14,14 +11,15 @@ namespace LibraryManagement.Services
             _repository = repository;
         }
 
-        public async Task<AdressModel> Create(AdressModel librarian)
+        public async Task<AdressModel> Create(AdressModel adress)
         {
-            throw new NotImplementedException();
+            var createdAdress = await Task.FromResult(_repository.Create(adress));
+            return createdAdress;   
         }
 
         public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            return await _repository.Delete(id);    
         }
 
         public async Task<AdressModel> Get(int id)

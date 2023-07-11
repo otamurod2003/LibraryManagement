@@ -15,6 +15,7 @@ namespace LibraryManagement.Models
         [Range(20,100)]
         public int  Age { get; set; }
         public Departments LibraryDepartment { get; set; }
+        public int AdressId { get; set; }
 
         //public string PhotoFilePath { get; set; }
     }

@@ -30,7 +30,7 @@ namespace LibraryManagement.DataAccess.Data
 
         public async Task<bool> Delete(int id)
         {
-            var adress = await _context.Adresses.FirstOrDefaultAsync(adress => adress.Id == id);
+            var adress = await _context.Adresses.FirstOrDefaultAsync(o => o.Id == id);
             if (adress != null)
             {
                 _context.Adresses.Remove(adress);

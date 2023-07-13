@@ -14,6 +14,6 @@ namespace LibraryManagement.DataAccess
 
         //public string  PhotoFilePath { get; set; }
         public Adress Adress { get; set; }
-        //public int AdressId { get; set; }
+        public int AdressId { get; set; }
     }
 }

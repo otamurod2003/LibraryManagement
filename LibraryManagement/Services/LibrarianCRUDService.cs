@@ -15,25 +15,25 @@ namespace LibraryManagement.Services
         }
         public async Task<LibrarianModel> Create(LibrarianModel model)
         {
-            var librarian = new Librarian
+            LibrarianModel librarian = new LibrarianModel
             {
                 Id = model.Id,  
                 FullName = model.FullName,
                 Age = model.Age,
-                LibraryDepartment = (DataAccess.Departments)model.LibraryDepartment,
-                
-               // PhotoFilePath = model.PhotoFilePath,
+                LibraryDepartment = model.LibraryDepartment,
+                Adress
             };
-            var createdLibrarian = await _librarianRepository.Create();
-            var result = new LibrarianModel
+            var createdLibrarian =  await  Task.FromResult(_librarianRepository.Create(librarian));
+            var result = new Librarian
             {
-                Id = createdLibrarian.Id,
                 FullName = createdLibrarian.FullName,
                 Age = createdLibrarian.Age,
-               // PhotoFilePath = createdLibrarian.PhotoFilePath,
-                LibraryDepartment = (Models.Departments)createdLibrarian.LibraryDepartment,
-            };
-            return result;
+                LibraryDepartment =  (DataAccess.Departments)createdLibrarian.LibraryDepartment,
+                Adress = 
+            }
+           
+
+            
         }
 
         public async Task<bool> Delete(int id)

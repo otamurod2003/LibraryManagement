@@ -1,20 +1,27 @@
 ﻿using LibraryManagement.DataAccess.Data;
+using LibraryManagement.DataAccess.Entities;
 using LibraryManagement.Models;
 
 namespace LibraryManagement.Services
 {
     public class AdressCRUDService : IGenericCRUDService<AdressModel>
     {
-        private readonly IGenericRepository<AdressModel> _repository;
-        public AdressCRUDService(IGenericRepository<AdressModel> repository)
+        private readonly IGenericRepository<AdressModel> _adressRepository;
+        public AdressCRUDService(IGenericRepository<AdressModel> adressRepository)
         {
-            _repository = repository;
+            _adressRepository = adressRepository;
         }
 
-        public async Task<AdressModel> Create(AdressModel adress)
+        public async Task<AdressModel> Create(AdressModel model)
         {
-            var createdAdress = await Task.FromResult(_repository.Create(adress));
-            return createdAdress;   
+            var adress = new Adress
+            {
+                Id = model.Id,
+                City = model.City,
+                Country = model.Country,
+                PostalCode = model.PostalCode,
+            };
+            var createdAdress = await Task.FromResult(_repository.Create());
         }
 
         public async Task<bool> Delete(int id)

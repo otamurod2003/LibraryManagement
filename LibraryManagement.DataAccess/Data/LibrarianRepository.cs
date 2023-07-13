@@ -19,7 +19,7 @@ namespace LibraryManagement.DataAccess
                 _context.SaveChanges();
                 return librarian;
             }
-                return librarian;
+            return librarian;
 
         }
 
@@ -28,15 +28,15 @@ namespace LibraryManagement.DataAccess
             var librarian = await _context.Librarians.FirstOrDefaultAsync(lib => lib.Id == id);
             if (librarian != null)
             {
-     _context.Librarians.Remove(librarian);
+                _context.Librarians.Remove(librarian);
                 await _context.SaveChangesAsync();
                 return true;
             }
             else
             {
-                return false;   
+                return false;
             }
-               
+
         }
 
         public async Task<List<Librarian>> GetAll()
@@ -55,6 +55,7 @@ namespace LibraryManagement.DataAccess
             var existLibrarian = _context.Librarians.Attach(librarian);
             existLibrarian.State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
             return librarian;
         }
     }

@@ -12,3 +12,17 @@ D:\myPractic\LibraryManagement.DataAccess\obj\Debug\net7.0\refint\LibraryManagem
 D:\myPractic\LibraryManagement.DataAccess\obj\Debug\net7.0\LibraryManagement.DataAccess.pdb
 D:\myPractic\LibraryManagement.DataAccess\obj\Debug\net7.0\LibraryManagement.DataAccess.genruntimeconfig.cache
 D:\myPractic\LibraryManagement.DataAccess\obj\Debug\net7.0\ref\LibraryManagement.DataAccess.dll
+D:\myPractic\Library\LibraryManagement.DataAccess\bin\Debug\net7.0\LibraryManagement.DataAccess.deps.json
+D:\myPractic\Library\LibraryManagement.DataAccess\bin\Debug\net7.0\LibraryManagement.DataAccess.runtimeconfig.json
+D:\myPractic\Library\LibraryManagement.DataAccess\bin\Debug\net7.0\LibraryManagement.DataAccess.dll
+D:\myPractic\Library\LibraryManagement.DataAccess\bin\Debug\net7.0\LibraryManagement.DataAccess.pdb
+D:\myPractic\Library\LibraryManagement.DataAccess\obj\Debug\net7.0\LibraryManagement.DataAccess.csproj.AssemblyReference.cache
+D:\myPractic\Library\LibraryManagement.DataAccess\obj\Debug\net7.0\LibraryManagement.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\myPractic\Library\LibraryManagement.DataAccess\obj\Debug\net7.0\LibraryManagement.DataAccess.AssemblyInfoInputs.cache
+D:\myPractic\Library\LibraryManagement.DataAccess\obj\Debug\net7.0\LibraryManagement.DataAccess.AssemblyInfo.cs
+D:\myPractic\Library\LibraryManagement.DataAccess\obj\Debug\net7.0\LibraryManagement.DataAccess.csproj.CoreCompileInputs.cache
+D:\myPractic\Library\LibraryManagement.DataAccess\obj\Debug\net7.0\LibraryManagement.DataAccess.dll
+D:\myPractic\Library\LibraryManagement.DataAccess\obj\Debug\net7.0\refint\LibraryManagement.DataAccess.dll
+D:\myPractic\Library\LibraryManagement.DataAccess\obj\Debug\net7.0\LibraryManagement.DataAccess.pdb
+D:\myPractic\Library\LibraryManagement.DataAccess\obj\Debug\net7.0\LibraryManagement.DataAccess.genruntimeconfig.cache
+D:\myPractic\Library\LibraryManagement.DataAccess\obj\Debug\net7.0\ref\LibraryManagement.DataAccess.dll

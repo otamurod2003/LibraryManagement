@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LibraryManagement.DataAccess.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagement.Models
 {
@@ -12,5 +13,7 @@ namespace LibraryManagement.Models
         public string Country { get; set; }
         [Required]
         public string PostalCode { get; set; }
+
+      
     }
 }

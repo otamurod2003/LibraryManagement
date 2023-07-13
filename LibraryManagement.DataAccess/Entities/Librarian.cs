@@ -1,6 +1,4 @@
 ﻿using LibraryManagement.DataAccess.Entities;
-using System.ComponentModel.DataAnnotations;
-
 namespace LibraryManagement.DataAccess
 {
     public class Librarian

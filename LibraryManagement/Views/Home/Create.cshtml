@@ -1,6 +1,6 @@
 ﻿@model LibrarianModel
 @{
-    ViewBag.Title = "Create new librarian";
+    ViewBag.Title = "Create new librarian";    
 }
 
 <div class="col-md-8 col-lg-6 col-sm-12 col-xl-4">
@@ -16,13 +16,13 @@
             <span asp-validation-for="Age" class="text-danger"></span>
         </div>
         @*<div class="form-group m-1">
-            <label asp-for="Photo"></label>
-            <div class="input-group mb-3">
-                <input asp-for="Photo" class="form-control" id="inputGroupFile02">
-                <label class="input-group-text" for="inputGroupFile02">Choose file</label>
-            </div>
+                <label asp-for="Photo"></label>
+                <div class="input-group mb-3">
+                    <input asp-for="Photo" class="form-control" id="inputGroupFile02">
+                    <label class="input-group-text" for="inputGroupFile02">Choose file</label>
+                </div>
 
-        </div>*@
+            </div>*@
         <div class="form-group m-1">
             <label asp-for="LibraryDepartment"></label>
             <select class="form-select " asp-for="LibraryDepartment" asp-items="Html.GetEnumSelectList<Departments>()">
@@ -30,9 +30,19 @@
             </select>
             <span asp-validation-for="LibraryDepartment" class="text-danger"></span>
         </div>
+        <h4 class="text-center">Adress details</h4>
+        <div class="form-group m-1">
+            <label>City</label>
+            <div class="input-group mb-3">
+                <input name="city"  class="form-control" id="inputGroupFile02">
+                <label class="input-group-text" for="inputGroupFile02">Choose file</label>
+            </div>
+        </div>
         <div class="">
             <button class="btn btn-primary m-2" type="submit">Create</button>
             <a class="btn btn-primary m-2" asp-controller="home" asp-action="index">Cancel</a>
         </div>
+
+
     </form>
 </div>

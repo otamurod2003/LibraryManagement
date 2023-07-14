@@ -1,26 +1,32 @@
 ﻿using LibraryManagement.DataAccess;
 using LibraryManagement.DataAccess.Data;
+using LibraryManagement.DataAccess.Entities;
 using LibraryManagement.Models;
 namespace LibraryManagement.Services
 {
     public class LibrarianCRUDService : IGenericCRUDService<LibrarianModel>
     {
         private readonly IGenericRepository<Librarian> _librarianRepository;
+        private readonly IGenericRepository<Adress> _adressRepository;
 
-        public LibrarianCRUDService(IGenericRepository<Librarian> librarianRepository)
+        public LibrarianCRUDService(IGenericRepository<Librarian> librarianRepository, IGenericRepository<Adress> adressRepository)
         {
             _librarianRepository = librarianRepository;
+            _adressRepository = adressRepository;
         }
         public async Task<LibrarianModel> Create(LibrarianModel model)
         {
+            var existingAdress = await _adressRepository.Get(model.AdressId);
             var librarian = new Librarian
             {
                 Id = model.Id,
                 Age = model.Age,
                 FullName = model.FullName,
                 LibraryDepartment = (DataAccess.Departments)model.LibraryDepartment,
-                AdressId = model.AdressId,
+                
             };
+            if(existingAdress != null)
+                librarian.Adress = existingAdress;
             var createdLibrarian = await Task.FromResult(_librarianRepository.Create(librarian));
             var result = new LibrarianModel
             {
@@ -38,12 +44,15 @@ namespace LibraryManagement.Services
 
         public async Task<bool> Delete(int id)
         {
+            var existingLibrarian = await _librarianRepository.Get(id);
+            await _adressRepository.Delete(existingLibrarian.Adress.Id);
             return await _librarianRepository.Delete(id);
         }
 
         public async Task<LibrarianModel> Get(int id)
         {
             var librarian = await _librarianRepository.Get(id);
+            var existLibrarianAdress = await _adressRepository.Get(librarian.Adress.Id);
             var model = new LibrarianModel
             {
                 Id = librarian.Id,
@@ -52,6 +61,8 @@ namespace LibraryManagement.Services
                 LibraryDepartment = (Models.Departments)librarian.LibraryDepartment,
                 AdressId = librarian.AdressId
             };
+            if (existLibrarianAdress != null)
+                model.AdressId = existLibrarianAdress.Id;
             return model;
         }
 
